@@ -7,7 +7,10 @@ import Head from "next/head";
 const ViewPlaces: NextPage = (props) => {
   return (
     <>
-      <Head>View Places</Head> <ViewPlacesContent />
+      <Head>
+        <title>View Places</title>
+      </Head>
+      <ViewPlacesContent />
     </>
   );
 };

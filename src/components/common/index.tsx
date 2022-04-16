@@ -12,3 +12,4 @@ export * from "./refresh-icon";
 export * from "./custom-modal";
 export * from "./confirmation-modal";
 export * from "./page-title";
+export * from "./custom-popup";

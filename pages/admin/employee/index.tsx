@@ -7,7 +7,10 @@ import Head from "next/head";
 const ViewEmployees: NextPage = (props) => {
   return (
     <>
-      <Head>View Employees</Head> <ViewEmployeesContent />
+      <Head>
+        <title>View Employees</title>
+      </Head>
+      <ViewEmployeesContent />
     </>
   );
 };

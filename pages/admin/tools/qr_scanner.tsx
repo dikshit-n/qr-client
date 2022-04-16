@@ -7,7 +7,10 @@ import Head from "next/head";
 const ViewPlaces: NextPage = (props) => {
   return (
     <>
-      <Head>Tools - QR Scanner</Head> <QRScanner />
+      <Head>
+        <title>Tools - QR Scanner</title>
+      </Head>
+      <QRScanner />
     </>
   );
 };

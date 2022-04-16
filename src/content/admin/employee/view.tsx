@@ -58,7 +58,7 @@ export const ViewEmployeesContent: React.FC = () => {
       renderAs={{
         manage: ({ value, Component }) => (
           <Component>
-            <Typography noWrap>
+            <Typography noWrap sx={{ textAlign: "right" }}>
               <Tooltip title={"Edit"} arrow>
                 <span>
                   <CustomIconButton
@@ -86,7 +86,7 @@ export const ViewEmployeesContent: React.FC = () => {
         { Header: "Name", accessor: "name" },
         { Header: "Email", accessor: "email" },
         { Header: "Phone", accessor: "phone" },
-        { Header: "Manage", accessor: "manage" },
+        { Header: "", accessor: "manage" },
       ]}
     />
   );

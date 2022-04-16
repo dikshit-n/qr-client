@@ -7,7 +7,10 @@ import Head from "next/head";
 const AddPlace: NextPage = (props) => {
   return (
     <>
-      <Head>Add Place</Head> <AddPlaceContent />
+      <Head>
+        <title>Add Place</title>
+      </Head>
+      <AddPlaceContent />
     </>
   );
 };

@@ -7,7 +7,10 @@ import Head from "next/head";
 const EditPlace: NextPage = (props) => {
   return (
     <>
-      <Head>Edit Place</Head> <EditPlaceContent />
+      <Head>
+        <title>Edit Place</title>
+      </Head>
+      <EditPlaceContent />
     </>
   );
 };

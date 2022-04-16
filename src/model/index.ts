@@ -1,5 +1,10 @@
 // react
-import type { ReactElement, ChangeEvent, JSXElementConstructor } from "react";
+import type {
+  ReactElement,
+  ChangeEvent,
+  JSXElementConstructor,
+  ReactNode,
+} from "react";
 // mui
 import type { DialogContentProps } from "@mui/material/DialogContent/DialogContent";
 import type { DialogProps } from "@mui/material/Dialog/Dialog";
@@ -627,6 +632,20 @@ export interface FLASH_EVENT_PROPS extends NotiStackOptionsObject {
   message?: NotiStackSnackbarMessage;
 }
 
+// popup event
+export interface POPUP_EVENT_PROPS {
+  title?: string;
+  message?: string;
+  type?: "success" | "error";
+  closeButton?: {
+    label: string;
+    onClick: Function;
+  };
+  onConfirm?: Function;
+  onCancel?: Function;
+  component?: ReactNode;
+}
+
 // modal event
 interface MODAL_CONTAINER_PROPS extends Omit<DialogProps, "open"> {
   closeOnClick?: boolean;
@@ -671,6 +690,7 @@ declare global {
   interface Window {
     flash: (params: FLASH_EVENT_PROPS) => any;
     modal: (params: MODAL_EVENT_PROPS) => any;
+    popup: (params: POPUP_EVENT_PROPS) => any;
   }
 }
 

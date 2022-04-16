@@ -7,5 +7,4 @@ export * from "./object-utils";
 export * from "./number-utils";
 export * from "./library-utils";
 export * from "./date-utils";
-
-// work on window.flash is not a function
+export * from "./special-utils";

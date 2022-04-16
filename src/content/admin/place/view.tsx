@@ -39,6 +39,7 @@ export const ViewPlacesContent: React.FC = () => {
     try {
       await placeApi.deletePlace(_id);
       window.flash({ message: "Deleted Successfully" });
+      fetchPlaces();
     } catch (err) {
       window.flash({ message: getError(err).message, variant: "error" });
     }
@@ -56,7 +57,7 @@ export const ViewPlacesContent: React.FC = () => {
       renderAs={{
         manage: ({ value, Component }) => (
           <Component>
-            <Typography noWrap>
+            <Typography noWrap sx={{ textAlign: "right" }}>
               <Tooltip title={"Edit"} arrow>
                 <span>
                   <CustomIconButton
@@ -80,7 +81,10 @@ export const ViewPlacesContent: React.FC = () => {
           </Component>
         ),
       }}
-      columns={[{ Header: "Name", accessor: "name" }]}
+      columns={[
+        { Header: "Place Name", accessor: "name" },
+        { Header: "", accessor: "manage" },
+      ]}
     />
   );
 };

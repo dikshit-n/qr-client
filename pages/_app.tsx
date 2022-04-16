@@ -10,7 +10,7 @@ import "@/assets/scss/global.scss";
 import { createEventEmitters } from "@/utils";
 // import { useRouter } from "next/router";
 import { SnackbarProvider } from "notistack";
-import { CustomModal, FlashMessage } from "@/components";
+import { PopupMessage, CustomModal, FlashMessage } from "@/components";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <StoreProvider store={store}>
       <ThemeProvider>
+        <PopupMessage />
         <SnackbarProvider
           maxSnack={6}
           anchorOrigin={{

@@ -462,6 +462,9 @@ export const PureLightTheme = createTheme({
           "& .MuiInputAdornment-positionEnd.MuiInputAdornment-outlined": {
             paddingRight: 12,
           },
+          "& .MuiInputAdornment-positionStart.MuiInputAdornment-outlined": {
+            paddingLeft: 12,
+          },
           "& .MuiInputAdornment-outlined button": {
             padding: 5,
             borderRadius: 0,

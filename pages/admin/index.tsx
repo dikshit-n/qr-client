@@ -7,7 +7,9 @@ import Head from "next/head";
 const AdminHome: NextPage = (props) => {
   return (
     <>
-      <Head>Dashboard</Head>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <AdminDashboard />
     </>
   );

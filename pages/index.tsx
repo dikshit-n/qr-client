@@ -16,7 +16,9 @@ const Home: NextPage = () => {
     if (!router.isReady) return;
     if (data)
       router.replace(
-        `${rbacSetup.homePage[data?.role as keyof typeof rbacSetup.homePage]}`
+        `${
+          rbacSetup.homePage[data?.roles[0] as keyof typeof rbacSetup.homePage]
+        }`
       );
   }, [router.isReady]);
 

@@ -1,50 +1,59 @@
+import { qrApi } from "@/api";
 import { CustomButton, PageTitleHeader, PageTitleWrapper } from "@/components";
-import { useLayoutUtils } from "@/hooks";
-import { Typography } from "@mui/material";
+import { getError, wait } from "@/utils";
+import { Typography, LinearProgress, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useRef, useState } from "react";
-import { QrReader } from "react-qr-reader";
+import { useState } from "react";
+import QrReader from "react-qr-scanner";
 
 const QRScannerContainer = styled("div")`
   width: 100%;
-  height: 100%;
   display: flex;
-  padding-top: 10vh;
+  padding-top: 10px;
   flex-direction: column;
   gap: 10px;
   align-items: center;
 `;
 
-const ViewFinder = styled("div")`
-  width: 500px;
-  height: 500px;
-`;
-
 export const QRScanner = () => {
-  const [data, setData] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
-  const qrScanContainer = useRef(null);
-  const { scrollContentContainerToTop } = useLayoutUtils();
+  const [processing, setProcessing] = useState(false);
 
-  const handleScanEnd = (result, error) => {
-    if (!!result) {
-      setData(result?.text);
+  const handleScan = async (data) => {
+    if (!!data) {
+      setIsScanning(false);
+      setProcessing(true);
+      await wait(1000);
+      try {
+        await qrApi.validateQr({ qrText: data.text });
+        window.popup({ title: "Validated QR successfully" });
+      } catch (err) {
+        console.log(getError(err).message);
+        window.popup({ type: "error", title: "Invalid QR code" });
+      }
+      setProcessing(false);
     }
-    if (!!error) {
+  };
+
+  const handleError = (error) => {
+    console.log(error);
+    if (!!error)
       window.flash({
         message: "Error Occured while scanning",
         variant: "error",
       });
-      setData(null);
-    }
-    setIsScanning(false);
-    scrollContentContainerToTop();
   };
 
-  const handleScanToggle = () => {
-    setIsScanning((prev) => !prev);
-    if (qrScanContainer.current)
-      qrScanContainer.current.scrollIntoView({ behavior: "smooth" });
+  const handleScanToggle = () => setIsScanning((prev) => !prev);
+
+  const previewStyle = {
+    height: "auto",
+    width: "90%",
+    maxWidth: "400px",
+    display: "flex",
+    justifyContent: "center",
+    border: "3px solid red",
+    padding: "10px",
   };
 
   return (
@@ -52,31 +61,40 @@ export const QRScanner = () => {
       <PageTitleWrapper>
         <PageTitleHeader
           title="QR Code Scanner"
-          description="Show him a QR code"
+          description="Just show me a QR code"
         />
       </PageTitleWrapper>
-      <QRScannerContainer ref={qrScanContainer}>
-        {isScanning ? (
-          <QrReader
-            onResult={handleScanEnd}
-            containerStyle={{ width: "500px", height: "500px" }}
-            videoContainerStyle={{
-              width: "500px",
-              height: "500px",
-              paddingTop: 0,
-            }}
-            constraints={{ facingMode: "user" }}
-            ViewFinder={ViewFinder}
-          />
+      <QRScannerContainer>
+        {processing ? (
+          <Box sx={{ width: "90%", pt: "20px" }}>
+            <LinearProgress />
+            <Typography variant="subtitle1" sx={{ mt: 2 }}>
+              Validating QR code...
+            </Typography>
+          </Box>
         ) : (
-          <Typography variant="subtitle1">Click to scan a QR code</Typography>
+          <>
+            {isScanning ? (
+              <QrReader
+                onScan={handleScan}
+                onError={handleError}
+                facingMode="environment"
+                style={previewStyle}
+                delay={300}
+              />
+            ) : (
+              <Typography variant="subtitle1">
+                Click to scan a QR code
+              </Typography>
+            )}
+            <CustomButton
+              color={isScanning ? "error" : "primary"}
+              onClick={handleScanToggle}
+            >
+              {isScanning ? "Stop Scanning" : "Scan Qr Code"}
+            </CustomButton>
+          </>
         )}
-        <CustomButton
-          color={isScanning ? "error" : "primary"}
-          onClick={handleScanToggle}
-        >
-          {isScanning ? "Stop Scanning" : "Scan Qr Code"}
-        </CustomButton>
       </QRScannerContainer>
     </>
   );
