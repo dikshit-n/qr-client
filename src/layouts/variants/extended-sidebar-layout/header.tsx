@@ -16,7 +16,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { CUSTOM_BUTTON_PROPS } from "@/model";
 import LockOpenOutlined from "@mui/icons-material/LockOpenOutlined";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { Chip, Tooltip } from "@mui/material";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 // import { useRouter } from "next/router";
 
 const StyledHeader = styled(Box)(
@@ -93,7 +94,6 @@ export const Header: React.FC<HEADER_PROPS> = (props) => {
           padding: "0 10px",
         }}
       >
-        <Typography variant="h3">QR Security</Typography>
         {/* <CustomButton onClick={back} startIcon={<ChevronLeftIcon />}>
           Back
         </CustomButton> */}
@@ -102,9 +102,13 @@ export const Header: React.FC<HEADER_PROPS> = (props) => {
             closeOnClick={false}
             trigger={{
               component: (
-                <CustomIconButton sx={{ borderRadius: "50%" }}>
-                  <Avatar src={avatar.image || undefined} alt={avatar.name} />
-                </CustomIconButton>
+                <Chip
+                  onClick={() => {}}
+                  avatar={
+                    <Avatar src={avatar.image || undefined} alt={avatar.name} />
+                  }
+                  label={avatar.name}
+                />
               ),
             }}
           >
@@ -149,6 +153,13 @@ export const Header: React.FC<HEADER_PROPS> = (props) => {
             {isOpen ? <CloseTwoToneIcon /> : <MenuTwoToneIcon />}
           </ToggleSidebar>
         </Stack>
+        <Tooltip title="Sign Out">
+          <span>
+            <CustomIconButton onClick={avatar.logout}>
+              <PowerSettingsNewIcon />
+            </CustomIconButton>
+          </span>
+        </Tooltip>
       </Box>
     </StyledHeader>
   );

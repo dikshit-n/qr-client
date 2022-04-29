@@ -3,6 +3,8 @@ import { styled } from "@mui/material/styles";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import { SidebarMenuItem } from "./sidebar-menu-item";
+import Image from "next/image";
+import { Divider } from "@mui/material";
 
 const SidebarMenuWrapper = styled(List)(
   ({ theme }) => `
@@ -10,13 +12,12 @@ const SidebarMenuWrapper = styled(List)(
         text-transform: uppercase;
         font-weight: bold;
         background: ${theme.sidebar.background};
-        color: ${theme.colors.alpha.trueWhite[50]};
+        color: ${theme.sidebar.menuItemHeadingColor};
         font-size: ${theme.typography.pxToRem(12)};
         line-height: 1.4;
-        padding: ${theme.spacing(1, 2.5)};
       }
       .MuiListItem-root {
-        padding: 5px;
+        padding: 0 5px;
         width: 100%;
         .has-default-icon {
           .MuiButton-startIcon {
@@ -31,11 +32,12 @@ const SidebarMenuWrapper = styled(List)(
         .drop-down-toggle, a {
           width: 100%;
           justify-content: flex-start;
-          padding: 9px 27px;
-          color: ${theme.colors.alpha.trueWhite[50]};
+          color: ${theme.sidebar.textColor};
           &.Mui-active, &:hover {
-            color: ${theme.sidebar.textColor};
-            background: ${theme.colors.alpha.trueWhite[10]};
+            color: #6b6969;
+            box-shadow: -2px 2px 2px 0 lightgrey;
+            background: #FFFFFF;
+            border-radius: 5px;
             &.has-default-icon {
               .MuiButton-startIcon {
                 opacity: 1;
@@ -57,12 +59,22 @@ const SidebarMenuWrapper = styled(List)(
     `
 );
 
+const ImageWrapper = styled("div")`
+  border: 2px solid lightgrey;
+  border-radius: 5px;
+  margin: 25px;
+`;
+
 export const SidebarMenu: React.FC<{
   routes?: SIDEBAR_MENU_ITEMS_STRUCTURE;
 }> = (props) => {
   const { routes = [] } = props;
   return (
     <>
+      <ImageWrapper>
+        <Image src="/img/logo.png" width={240} height={52} />
+      </ImageWrapper>
+      <Divider />
       {routes.map((el, index) => (
         <SidebarMenuWrapper
           key={index}

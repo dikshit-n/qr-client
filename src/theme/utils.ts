@@ -126,6 +126,7 @@ declare module "@mui/material/styles" {
     };
     header: {
       height: string;
+      width: string;
       background: React.CSSProperties["color"];
       boxShadow: React.CSSProperties["color"];
       textColor: React.CSSProperties["color"];

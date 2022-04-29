@@ -18,17 +18,28 @@ export function useAuth() {
     Partial<INITIALIZE_ACTION>
   > {
     return new Promise(async (resolve, reject) => {
-      try {
-        const token = getCookie("token");
-        if (!token) throw new Error("Session expired");
-        const data = await authApi.initialize();
-        let updatedData = { data, isAuthenticated: true };
-        if (updateRedux) authActions.initialize(updatedData);
-        resolve(updatedData);
-      } catch (err) {
-        if (updateRedux) authActions.logout();
-        reject(err);
-      }
+      const DUMMY_DATA = {
+        isAuthenticated: true,
+        data: {
+          name: "Jaga",
+          email: "jaga@mailinator.com",
+          token: "test_token",
+          roles: ["admin"],
+        },
+      };
+      authActions.initialize(DUMMY_DATA);
+      resolve(DUMMY_DATA);
+      // try {
+      //   const token = getCookie("token");
+      //   if (!token) throw new Error("Session expired");
+      //   const data = await authApi.initialize();
+      //   let updatedData = { data, isAuthenticated: true };
+      //   if (updateRedux) authActions.initialize(updatedData);
+      //   resolve(updatedData);
+      // } catch (err) {
+      //   if (updateRedux) authActions.logout();
+      //   reject(err);
+      // }
     });
   }
 
@@ -43,7 +54,7 @@ export function useAuth() {
         if (updateRedux) authActions.login(data);
         resolve(data);
       } catch (err) {
-        reject(err);
+        if (updateRedux) reject(err);
       }
     });
   }

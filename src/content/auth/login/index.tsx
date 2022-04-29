@@ -55,7 +55,6 @@ export const LoginContent: React.FC = () => {
   const isMountedRef = useRefMounted();
 
   const handleSubmit = async (data: LOGIN_AUTH_PROPS) => {
-    console.log(data);
     setLoggingIn(true);
     try {
       const { roles } = await login(data);

@@ -14,6 +14,7 @@ const StyledSidebar = styled(Box)(
     height: 100vh;
     overflow: auto;
     position: relative;
+    box-shadow: 2px 0px 2px 0 lightgrey;
     ${theme.breakpoints.down("lg")} {
       position: fixed;
       top: 0;

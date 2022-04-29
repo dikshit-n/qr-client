@@ -52,13 +52,13 @@ const colors = {
   },
   layout: {
     general: {
-      bodyBg: "#f2f5f9",
+      bodyBg: "#F6F6F6",
     },
     sidebar: {
-      background: themeColors.black,
-      textColor: themeColors.white,
-      dividerBg: "#f2f5f9",
-      menuItemColor: "#242E6F",
+      background: "#F6F6F6",
+      textColor: "#202020",
+      dividerBg: "#EAEAEA",
+      menuItemColor: "#202020",
       menuItemColorActive: themeColors.primary,
       menuItemBg: themeColors.white,
       menuItemBgActive: "#f2f5f9",

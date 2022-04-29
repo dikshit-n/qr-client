@@ -56,7 +56,8 @@ export interface AUTH_DATA<T = "admin"> {
   email: string;
   token: string;
   // #rbac-setup
-  roles: ROLES;
+  // roles: ROLES;
+  roles: string[];
   profile?: USER_PROFILE<T> | null;
 }
 
