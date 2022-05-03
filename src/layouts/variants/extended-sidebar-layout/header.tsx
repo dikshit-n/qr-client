@@ -98,6 +98,9 @@ export const Header: React.FC<HEADER_PROPS> = (props) => {
           Back
         </CustomButton> */}
         <Stack direction="row">
+          <ToggleSidebar onClick={toggleSidebar}>
+            {isOpen ? <CloseTwoToneIcon /> : <MenuTwoToneIcon />}
+          </ToggleSidebar>
           <CustomPopover
             closeOnClick={false}
             trigger={{
@@ -149,9 +152,6 @@ export const Header: React.FC<HEADER_PROPS> = (props) => {
               </Box>
             </AvatarPopoverWrapper>
           </CustomPopover>
-          <ToggleSidebar onClick={toggleSidebar}>
-            {isOpen ? <CloseTwoToneIcon /> : <MenuTwoToneIcon />}
-          </ToggleSidebar>
         </Stack>
         <Tooltip title="Sign Out">
           <span>
