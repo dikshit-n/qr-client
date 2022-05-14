@@ -740,5 +740,21 @@ export type ADD_PLACE = {
 export type EDIT_PLACE = Partial<PLACE_DETAILS>;
 export type PLACES = PLACE_DETAILS[];
 
+export type ADMIN_DASHBOARD_DETAILS = {
+  employeeCount: number;
+  scanCount: {
+    success: number; 
+    failure: number;
+  }
+}
+export type EMPLOYEE_DASHBOARD_DETAILS = {
+  employeeCount: number;
+  scanCount: {
+    success: number; 
+    failure: number;
+  }
+}
+
+
 // custom-models
 export * from "./custom-models";

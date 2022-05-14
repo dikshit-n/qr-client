@@ -2,6 +2,10 @@ import { Card, Grid, styled, Typography, Box } from "@mui/material";
 import { DashboardHeader, DashboardTitleWrapper } from "@/components";
 import GroupIcon from "@mui/icons-material/Group";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
+import { useEffect, useState } from "react";
+import { getError } from "@/utils";
+import { dashboardApi } from '@/api/admin'
+import { ADMIN_DASHBOARD_DETAILS } from "@/model";
 
 const TileCard = styled(Card)(
   ({ theme }) => `
@@ -30,6 +34,27 @@ const TileValue = styled(Typography)(
 );
 
 export const AdminDashboard: React.FC = () => {
+
+  const [details, setDetails] = useState<ADMIN_DASHBOARD_DETAILS>(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    fetchDetails()
+  }, [])
+
+  const fetchDetails = async() => {
+    setLoading(true)
+    try {
+      const data = await dashboardApi.fetchDetails()
+      console.log(data)
+      setDetails(data)
+    }
+    catch(err) {
+      window.flash({message: getError(err), variant: 'error'})
+    }
+    setLoading(false)
+  }
+
   return (
     <>
       <DashboardTitleWrapper>
