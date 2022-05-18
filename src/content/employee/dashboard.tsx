@@ -1,12 +1,20 @@
-import { Card, Grid, styled, Typography, Box } from "@mui/material";
+import {
+  Card,
+  Grid,
+  styled,
+  Typography,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 import { DashboardHeader, DashboardTitleWrapper } from "@/components";
 import GroupIcon from "@mui/icons-material/Group";
-import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
+import CheckIcon from "@mui/icons-material/Check";
 import { useEffect, useState } from "react";
 import { getError } from "@/utils";
-import { dashboardApi } from '@/api/employee'
+import { dashboardApi } from "@/api/employee";
 import { EMPLOYEE_DASHBOARD_DETAILS } from "@/model";
 import { useSelector } from "@/redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 const TileCard = styled(Card)(
   ({ theme }) => `
@@ -24,12 +32,7 @@ const TileHeader = styled(Typography)(
   ({ theme }) => `
   color: ${theme.palette.text.secondary};
   `
-  );
-  
-const TileSubHeader = styled(Typography)(({theme}) => `
-  color: ${theme.palette.text.secondary};
-  font-weight: bold;
-`)
+);
 
 const TileValue = styled(Typography)(
   ({ theme }) => `
@@ -40,29 +43,40 @@ const TileValue = styled(Typography)(
 );
 
 export const EmployeeDashboard: React.FC = () => {
-
-  const [details, setDetails] = useState<EMPLOYEE_DASHBOARD_DETAILS>(null)
-  const [loading, setLoading] = useState(false)
-  const {data={}} = useSelector(state => state.auth)
-  const {name=''} = data
+  const [details, setDetails] = useState<EMPLOYEE_DASHBOARD_DETAILS>(null);
+  const [loading, setLoading] = useState(false);
+  const { data } = useSelector((state) => state.auth);
+  const { name = "" } = data;
   useEffect(() => {
-    fetchDetails()
-  }, [])
+    fetchDetails();
+  }, []);
 
-  const fetchDetails = async() => {
-    setLoading(true)
+  const fetchDetails = async () => {
+    setLoading(true);
     try {
-      const data = await dashboardApi.fetchDetails()
-      console.log(data)
-      setDetails(data)
+      const data = await dashboardApi.fetchDetails();
+      console.log(data);
+      setDetails(data);
+    } catch (err) {
+      console.log(err);
+      window.flash({ message: getError(err).meassage, variant: "error" });
     }
-    catch(err) {
-      window.flash({message: getError(err), variant: 'error'})
-    }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
-  return (
+  return loading ? (
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <CircularProgress />
+    </div>
+  ) : (
     <>
       <DashboardTitleWrapper>
         <DashboardHeader
@@ -75,7 +89,7 @@ export const EmployeeDashboard: React.FC = () => {
           <TileCard>
             <Box>
               <TileHeader>Total Employees</TileHeader>
-              <TileValue variant="h5">{details?.employeeCount}</TileValue>
+              <TileValue variant="h5">{details?.employeeCount || 0}</TileValue>
             </Box>
             <GroupIcon />
           </TileCard>
@@ -83,13 +97,23 @@ export const EmployeeDashboard: React.FC = () => {
         <Grid item width={{ xs: "100%", sm: "50%", md: "30%" }}>
           <TileCard>
             <Box>
-              <TileHeader>Total Scans</TileHeader>
-              <TileSubHeader>Success</TileSubHeader>
-              <TileValue variant="h5">{details?.scanCount?.success}</TileValue>
-              <TileSubHeader>Failure</TileSubHeader>
-              <TileValue variant="h5">{details?.scanCount?.failure}</TileValue>
+              <TileHeader>Total Successful Scans</TileHeader>
+              <TileValue variant="h5">
+                {details?.scanCount?.success || 0}
+              </TileValue>
             </Box>
-            <QrCodeScannerIcon />
+            <CheckIcon color="success" />
+          </TileCard>
+        </Grid>
+        <Grid item width={{ xs: "100%", sm: "50%", md: "30%" }}>
+          <TileCard>
+            <Box>
+              <TileHeader>Total Failure Scans</TileHeader>
+              <TileValue variant="h5">
+                {details?.scanCount?.failure || 0}
+              </TileValue>
+            </Box>
+            <CloseIcon color="error" />
           </TileCard>
         </Grid>
       </Grid>
