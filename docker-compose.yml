@@ -1,0 +1,12 @@
+version: "3.3"
+
+services:
+    dev:
+      container_name: qr-client
+      image: qr_client_image
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      command: npm run dev
+      ports:
+      - 3000:3000
