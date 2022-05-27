@@ -84,7 +84,7 @@ export const QRScannerPopup: React.FC<
               <QrReader
                 onScan={handleScan}
                 onError={handleError}
-                facingMode="environment"
+                // facingMode="environment"
                 style={previewStyle}
                 delay={300}
               />

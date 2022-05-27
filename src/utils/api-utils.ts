@@ -35,7 +35,7 @@ export const getError = (errorObject: Error | AxiosError) => {
 
 // creating axios instance
 export const axiosInstance = axios.create({
-  baseURL: "http://65.0.99.209:5000/v1",
+  baseURL: "https://api.qr-auth.jagalive.in",
 });
 
 // setting token in header for each request

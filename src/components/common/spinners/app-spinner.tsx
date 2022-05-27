@@ -1,14 +1,18 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from "@mui/material";
 
 export function AppSpinner() {
   return (
     <Box
-      sx={{ position: 'fixed', left: 0, top: 0, width: '100%', height: '100%' }}
+      sx={{ position: "fixed", left: 0, top: 0, width: "100%", height: "100%" }}
       display="flex"
       alignItems="center"
       justifyContent="center"
     >
-      <CircularProgress size={64} disableShrink thickness={3} />
+      <img
+        src={"/img/qr-loader.gif"}
+        alt="loading"
+        style={{ width: 300, height: 200 }}
+      />
     </Box>
   );
 }
