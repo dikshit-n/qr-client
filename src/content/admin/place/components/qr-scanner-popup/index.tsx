@@ -3,7 +3,7 @@ import { CUSTOM_MODAL_COMPONENT_PROPS } from "@/model";
 import { wait } from "@/utils";
 import { Box, LinearProgress, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import QrReader from "react-qr-scanner";
+import { QrReader } from "react-qr-reader";
 import CloseIcon from "@mui/icons-material/Close";
 
 const QRScannerContainer = styled("div")`
@@ -30,7 +30,7 @@ export const QRScannerPopup: React.FC<
     setIsScanning(startScanOnMount);
   }, [startScanOnMount]);
 
-  const handleScan = async (data) => {
+  const handleScan = async (data, error) => {
     if (!!data) {
       setIsScanning(false);
       setProcessing(true);
@@ -38,15 +38,13 @@ export const QRScannerPopup: React.FC<
       await scanPromise(data);
       setProcessing(false);
     }
-  };
-
-  const handleError = (error) => {
-    console.log(error);
-    if (!!error)
+    if (!!error) {
+      console.log(error);
       window.flash({
         message: "Error Occured while scanning",
         variant: "error",
       });
+    }
   };
 
   const handleScanToggle = () => setIsScanning((prev) => !prev);
@@ -82,11 +80,10 @@ export const QRScannerPopup: React.FC<
           <>
             {isScanning ? (
               <QrReader
-                onScan={handleScan}
-                onError={handleError}
-                // facingMode="environment"
-                style={previewStyle}
-                delay={300}
+                constraints={{ facingMode: "user" }}
+                onResult={handleScan}
+                containerStyle={previewStyle}
+                scanDelay={300}
               />
             ) : (
               <Typography variant="subtitle1">

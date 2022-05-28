@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import { CONFIG_TYPE, LOGIN_AUTH_PROPS } from "@/model";
 import { CustomButton, RecursiveContainer } from "@/components";
 import { authSchema } from "@/schema";
-import { useActions, useAuth, useRefMounted } from "@/hooks";
-import { getError, setCookie } from "@/utils";
+import { useAuth, useRefMounted } from "@/hooks";
+import { getError } from "@/utils";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
