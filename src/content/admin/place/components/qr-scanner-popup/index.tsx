@@ -30,7 +30,7 @@ export const QRScannerPopup: React.FC<
     setIsScanning(startScanOnMount);
   }, [startScanOnMount]);
 
-  const handleScan = async (data, error) => {
+  const handleScan = async (data) => {
     if (!!data) {
       setIsScanning(false);
       setProcessing(true);
@@ -38,13 +38,13 @@ export const QRScannerPopup: React.FC<
       await scanPromise(data);
       setProcessing(false);
     }
-    if (!!error) {
-      console.log(error);
-      window.flash({
-        message: "Error Occured while scanning",
-        variant: "error",
-      });
-    }
+    // if (!!error) {
+    //   console.log(error);
+    //   window.flash({
+    //     message: "Error Occured while scanning",
+    //     variant: "error",
+    //   });
+    // }
   };
 
   const handleScanToggle = () => setIsScanning((prev) => !prev);

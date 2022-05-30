@@ -10,16 +10,7 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 
 export const ViewPlacesContent: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [places, setPlaces] = useState([
-    {
-      name: "Place 1",
-      _id: "place_id_1",
-    },
-    {
-      name: "Place 2",
-      _id: "place_id_2",
-    },
-  ]);
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
     fetchPlaces();
